@@ -1,7 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import { db } from "./utils/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
-const buttonHandler = ()=>{
+const buttonHandler = async()=>{
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
   console.log('Button clicked');
 }
 
