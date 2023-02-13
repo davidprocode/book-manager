@@ -12,6 +12,6 @@ You may also see any lint errors in the console.
 
 ### Deployment
 
-deploy with firebase-cli
-1 Step: `$ npm run build`
-2 Step: `$ firebase deploy`
+## deploy with firebase-cli
+* 1 Step: `$ npm run build`
+* 2 Step: `$ firebase deploy`

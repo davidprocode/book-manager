@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import { db } from "./utils/firebase";
 import { addDoc, collection } from "firebase/firestore";
 
