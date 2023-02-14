@@ -1,9 +1,12 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import { db } from "../../utils/firebase";
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 const NewBookForm = () => {
+  const [section, setSection] = useState("");
+  const handleSection = (e) => setSection(e.target.value);
+
   const [title, setTitle] = useState("");
   const handleTitle = (e) => setTitle(e.target.value);
 
@@ -16,11 +19,21 @@ const NewBookForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = { title, author, publisher };
-    const newBookRef = doc(collection(db, "books", "section"));
-    try {
-      await setDoc(newBookRef, data);
-    } catch (error) {
-      if (error) console.log("Error: ", error.message);
+    if (!title || !author || !publisher) {
+      alert("Preencha todos os campos");
+    } else {
+      const newBookRef = doc(db, "books", section);
+      try {
+        await setDoc(newBookRef, data).then(() => {
+          alert("Livro cadastrado com sucesso!");
+          setSection("");
+          setTitle("");
+          setAuthor("");
+          setPublisher("");
+        });
+      } catch (error) {
+        if (error) console.log("Error: ", error.message);
+      }
     }
   };
 
@@ -28,6 +41,18 @@ const NewBookForm = () => {
     <Container>
       <h2>Adicionar novo livro</h2>
       <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="section">
+          <Form.Select
+            aria-label="Selecione a secao do livro"
+            onChange={handleSection}
+            value={section}
+          >
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </Form.Select>
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Titulo</Form.Label>
           <Form.Control
