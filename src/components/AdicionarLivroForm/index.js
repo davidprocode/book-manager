@@ -3,7 +3,7 @@ import { useState } from "react";
 import { db } from "../../utils/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-const NewBookForm = () => {
+const AdicionarLivroForm = () => {
   const [section, setSection] = useState("");
   const handleSection = (e) => setSection(e.target.value);
 
@@ -42,8 +42,9 @@ const NewBookForm = () => {
       <h2>Adicionar novo livro</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="section">
+          <Form.Label>Seção</Form.Label>
           <Form.Select
-            aria-label="Selecione a secao do livro"
+            aria-label="Selecione a seção do livro"
             onChange={handleSection}
             value={section}
           >
@@ -91,4 +92,4 @@ const NewBookForm = () => {
   );
 };
 
-export default NewBookForm;
+export default AdicionarLivroForm;
