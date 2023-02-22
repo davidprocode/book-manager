@@ -1,7 +1,7 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import { db } from "../../utils/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const AdicionarLivroForm = () => {
   const [section, setSection] = useState("");
@@ -18,13 +18,13 @@ const AdicionarLivroForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = { title, author, publisher };
+    const data = { title, author, publisher, section };
     if (!title || !author || !publisher) {
       alert("Preencha todos os campos");
     } else {
-      const newBookRef = doc(db, "books", section);
       try {
-        await setDoc(newBookRef, data).then(() => {
+        const docRef = collection(db, "books");
+        await addDoc(docRef, data).then(() => {
           alert("Livro cadastrado com sucesso!");
           setSection("");
           setTitle("");
@@ -32,7 +32,7 @@ const AdicionarLivroForm = () => {
           setPublisher("");
         });
       } catch (error) {
-        if (error) console.log("Error: ", error.message);
+        if (error) alert("Error: " + error.message);
       }
     }
   };
@@ -48,9 +48,16 @@ const AdicionarLivroForm = () => {
             onChange={handleSection}
             value={section}
           >
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="Ciências Exatas">Ciências Exatas</option>
+            <option value="Ciências Biológicas">Ciências Biológicas</option>
+            <option value="Engenharias">Engenharias</option>
+            <option value="Ciências da Saúde">Ciências da Saúde</option>
+            <option value="Ciências Agrárias">Ciências Agrárias</option>
+            <option value="Ciências Sociais">Ciências Sociais</option>
+            <option value="Ciências Humanas">Ciências Humanas</option>
+            <option value="Linguística, Letras E Artes">
+              Linguística, Letras E Artes
+            </option>
           </Form.Select>
         </Form.Group>
 

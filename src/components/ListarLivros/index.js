@@ -5,25 +5,31 @@ import Tabela from "./Tabela";
 
 import { db } from "../../utils/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
+import { Container } from "react-bootstrap";
 
 function ListarLivros() {
   const [books, setBooks] = useState([]);
+  window.addEventListener("load", () => {
+    Fetchdata();
+  });
 
-  useEffect(() => {
-    return async () => {
-      const booksRef = collection(db, "books");
-      const q = query(booksRef);
-      await getDocs(q).then((querySnapshot) => {
-        const booksArray = [];
-        querySnapshot.forEach((childSnapshot) => {
-          booksArray.push(childSnapshot.data());
-        });
-        setBooks(booksArray);
+  const Fetchdata = async () => {
+    const booksRef = collection(db, "books");
+    const q = query(booksRef);
+    await getDocs(q).then((querySnapshot) => {
+      const booksArray = [];
+      querySnapshot.forEach((childSnapshot) => {
+        booksArray.push(childSnapshot.data());
       });
-    };
-  }, [books, setBooks]);
+      setBooks(booksArray);
+    });
+  };
 
-  return <>{books.length === 0 ? <Loading /> : <Tabela items={books} />}</>;
+  return (
+    <Container>
+      {books.length === 0 ? <Loading /> : <Tabela items={books} />}
+    </Container>
+  );
 }
 
 export default ListarLivros;

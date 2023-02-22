@@ -1,14 +1,15 @@
+import { Table } from "react-bootstrap";
+
 function Tabela({ items }) {
   return (
     <>
-      <table>
+      <Table striped bordered hover>
         <thead>
-          <tr>
-            <th>Tabela de livros</th>
-          </tr>
           <tr>
             <th>Titulo</th>
             <th>Autor</th>
+            <th>Editora</th>
+            <th>Seção</th>
           </tr>
         </thead>
         <tbody>
@@ -16,10 +17,12 @@ function Tabela({ items }) {
             <tr key={index}>
               <td> {item.title} </td>
               <td> {item.author} </td>
+              <td> {item.publisher} </td>
+              <td> {item.section} </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </>
   );
 }

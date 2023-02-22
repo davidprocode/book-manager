@@ -1,18 +1,12 @@
-import AdicionarLivroForm from "./components/AdicionarLivroForm";
+import AdicionarLivro from "./components/AdicionarLivro";
 import Header from "./components/Header";
 import ListarLivros from "./components/ListarLivros";
-
-// const data = [
-//   { titulo: "vakcmmmçla", autor: "vnaoivnodnl" },
-//   { titulo: "vakcmmmçla", autor: "vnaoivnodnl" },
-//   { titulo: "vakcmmmçla", autor: "vnaoivnodnl" },
-// ];
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <AdicionarLivroForm />
+      <AdicionarLivro />
       <ListarLivros />
     </div>
   );
