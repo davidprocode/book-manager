@@ -1,14 +1,29 @@
 import Header from "./components/Header";
-import AdicionarLivro from "./components/AdicionarLivro";
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
 import ListarLivros from "./components/ListarLivros";
+import AdicionarLivroForm from "./components/AdicionarLivro";
+
+const router = createBrowserRouter([
+  {
+    path: "/listar",
+    element: <ListarLivros/>,
+  },
+  {
+    path: "/adicionar",
+    element: <AdicionarLivroForm/>
+  },
+]);
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <AdicionarLivro/>
-      <br/>
-      <ListarLivros />
+      <RouterProvider router={router}/>
     </div>
   );
 }
